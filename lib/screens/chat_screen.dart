@@ -1,4 +1,5 @@
 import 'package:chat_app/widgets/chat/chat.dart';
+import 'package:chat_app/widgets/chat/new_message.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -51,6 +52,7 @@ class _ChatScreenState extends State<ChatScreen> {
           Expanded(
             child: Chat(),
           ),
+          NewMessage(),
         ],
       ),
     );
