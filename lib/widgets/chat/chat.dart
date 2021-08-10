@@ -27,6 +27,7 @@ class Chat extends StatelessWidget {
               messages[index]['text'],
               FirebaseAuth.instance.currentUser!.uid ==
                   messages[index]['userId'],
+              messages[index]['username'],
             );
           },
         );

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:chat_app/widgets/auth/PickImage.dart';
 import 'package:flutter/material.dart';
 
 class AuthForm extends StatefulWidget {
@@ -16,10 +19,28 @@ class _AuthFormState extends State<AuthForm> {
   var email = '';
   var username = '';
   var password = '';
+  var imageFile;
+
+  void pickedImage(File image) {
+    imageFile = image;
+    print('in------------------');
+  }
 
   void _trySubmit() {
+    if (imageFile == null && isSignup) {
+      print('object');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please click Image!'),
+          backgroundColor: Theme.of(context).errorColor,
+        ),
+      );
+      return;
+    }
+
     final isValid = _formKey.currentState?.validate();
     FocusScope.of(context).unfocus();
+
     if (isValid!) {
       _formKey.currentState?.save();
       widget.submitForm(
@@ -48,6 +69,7 @@ class _AuthFormState extends State<AuthForm> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  if (isSignup) PickImage(pickedImage, imageFile),
                   TextFormField(
                     key: ValueKey('email'),
                     validator: (value) {

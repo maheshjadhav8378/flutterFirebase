@@ -3,17 +3,18 @@ import 'package:flutter/material.dart';
 class MessageBubble extends StatelessWidget {
   final message;
   final isMe;
+  final username;
 
-  MessageBubble(this.message, this.isMe);
+  MessageBubble(this.message, this.isMe, this.username);
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         Container(
-          width: 150,
+          width: 200,
           padding: EdgeInsets.symmetric(
-            vertical: 15,
+            vertical: 5,
             horizontal: 20,
           ),
           margin: EdgeInsets.symmetric(
@@ -31,14 +32,30 @@ class MessageBubble extends StatelessWidget {
               bottomRight: isMe ? Radius.circular(0) : Radius.circular(12),
             ),
           ),
-          child: Text(
-            message,
-            style: TextStyle(
-              color: isMe
-                  ? Theme.of(context).primaryTextTheme.headline6!.color
-                  : Theme.of(context).accentTextTheme.headline6!.color,
-              fontSize: 18,
-            ),
+          child: Column(
+            crossAxisAlignment:
+                isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+            children: [
+              Text(
+                username,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: isMe
+                      ? Theme.of(context).primaryTextTheme.headline6!.color
+                      : Theme.of(context).accentTextTheme.headline6!.color,
+                  fontSize: 15,
+                ),
+              ),
+              Text(
+                message,
+                style: TextStyle(
+                  color: isMe
+                      ? Theme.of(context).primaryTextTheme.headline6!.color
+                      : Theme.of(context).accentTextTheme.headline6!.color,
+                  fontSize: 15,
+                ),
+              ),
+            ],
           ),
         ),
       ],
