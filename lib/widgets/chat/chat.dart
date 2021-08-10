@@ -7,8 +7,21 @@ class Chat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      builder: (ctx, snapShot) {},
-      stream: ,
+      stream: FirebaseFirestore.instance.collection('chat').snapshots(),
+      builder: (ctx, AsyncSnapshot<dynamic> snapShot) {
+        if (snapShot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        final messages = snapShot.data.docs;
+        return ListView.builder(
+          itemCount: messages.length,
+          itemBuilder: (ctx, index) {
+            return Text(messages[index]['message']);
+          },
+        );
+      },
     );
   }
 }
